@@ -1,0 +1,2960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cheap Trip Today | Official Airline Reservation & Ticket Assistance</title>
+  <meta name="description" content="Book cheap flights, manage airline reservations, fast cancellations, date changes, and refunds. Call our 24/7 flight desk for unpublished phone-only airline discounts.">
+  <meta name="keywords" content="flight booking, airline reservation, cheap flight tickets, flight changes, airline cancellation, 24/7 travel desk">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CSS RESET & DESIGN TOKENS
+       ========================================================================== */
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-deep: #0f172a;
+      --accent: #f97316;
+      --accent-hover: #ea580c;
+      --success: #10b981;
+      --warning: #f59e0b;
+      
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+      --shadow-lg: 0 20px 35px -10px rgba(15, 23, 42, 0.12), 0 10px 15px -8px rgba(15, 23, 42, 0.05);
+      --shadow-glow: 0 0 25px rgba(2, 132, 199, 0.35);
+      
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-heading: 'Outfit', sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-main);
+      background-color: var(--bg-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    button, input, select {
+      font-family: inherit;
+      outline: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Icon Helper */
+    .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.25rem;
+      height: 1.25rem;
+      stroke-width: 2;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       TOP ANNOUNCEMENT BAR
+       ========================================================================== */
+    .top-bar {
+      background: linear-gradient(90deg, #0f172a 0%, #1e293b 50%, #0369a1 100%);
+      color: #ffffff;
+      padding: 9px 0;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .top-bar-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+
+    .pulse-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(249, 115, 22, 0.2);
+      color: #fdba74;
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      background-color: #f97316;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(249, 115, 22, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+    }
+
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .top-phone-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #38bdf8;
+      font-weight: 700;
+    }
+    .top-phone-link:hover {
+      color: #ffffff;
+    }
+
+    /* ==========================================================================
+       MAIN HEADER / NAVBAR
+       ========================================================================== */
+    .site-header {
+      background: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-icon-box {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 6px 14px rgba(2, 132, 199, 0.3);
+    }
+
+    .brand-name {
+      font-family: var(--font-heading);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--primary-deep);
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+
+    .brand-name span {
+      color: var(--primary);
+    }
+
+    .brand-tagline {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+      padding: 6px 0;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .call-desk-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 8px 20px rgba(249, 115, 22, 0.35);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .call-desk-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(249, 115, 22, 0.45);
+      color: #ffffff;
+    }
+
+    .call-icon-wrap {
+      width: 34px;
+      height: 34px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: phoneRing 2s infinite ease-in-out;
+    }
+
+    @keyframes phoneRing {
+      0% { transform: rotate(0deg); }
+      10% { transform: rotate(14deg); }
+      20% { transform: rotate(-14deg); }
+      30% { transform: rotate(14deg); }
+      40% { transform: rotate(-14deg); }
+      50% { transform: rotate(0deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .call-text-group {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      line-height: 1.2;
+    }
+
+    .call-subtext {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.9;
+      font-weight: 600;
+    }
+
+    .call-number {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      font-family: var(--font-heading);
+    }
+
+    /* Mobile hamburger */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+
+    /* ==========================================================================
+       HERO SECTION WITH FLIGHT ENGINE
+       ========================================================================== */
+    .hero-section {
+      position: relative;
+      background: 
+        linear-gradient(180deg, rgba(11, 19, 43, 0.80) 0%, rgba(15, 23, 42, 0.85) 55%, #0f172a 100%),
+        url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=2000&q=85') center 28% / cover no-repeat;
+      color: #ffffff;
+      padding: 55px 0 90px;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 80% 20%, rgba(2, 132, 199, 0.25) 0%, transparent 50%),
+                  radial-gradient(circle at 20% 80%, rgba(249, 115, 22, 0.15) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto 32px;
+    }
+
+    /* ==========================================================================
+       TOP 4-CTA QUICK ACTION BUTTONS (2x2 on Mobile, 4 Columns on Desktop)
+       ========================================================================== */
+    .quick-cta-wrapper {
+      max-width: 1140px;
+      margin: 0 auto 26px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .quick-cta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .quick-cta-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.18);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .quick-cta-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    .quick-cta-card.cta-booking::before { background: #0284c7; }
+    .quick-cta-card.cta-cancel::before { background: #ef4444; }
+    .quick-cta-card.cta-changes::before { background: #f59e0b; }
+    .quick-cta-card.cta-refunds::before { background: #10b981; }
+
+    .quick-cta-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 30px -8px rgba(15, 23, 42, 0.28);
+      border-color: #93c5fd;
+    }
+
+    .quick-cta-card:active {
+      transform: scale(0.98);
+    }
+
+    .quick-cta-icon-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+
+    .cta-booking .quick-cta-icon-box { background: #e0f2fe; color: #0284c7; }
+    .cta-cancel .quick-cta-icon-box { background: #fee2e2; color: #ef4444; }
+    .cta-changes .quick-cta-icon-box { background: #fef3c7; color: #d97706; }
+    .cta-refunds .quick-cta-icon-box { background: #dcfce7; color: #16a34a; }
+
+    .quick-cta-card:hover .quick-cta-icon-box {
+      transform: scale(1.08);
+    }
+
+    .quick-cta-text {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      min-width: 0;
+    }
+
+    .quick-cta-badge {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .cta-booking .quick-cta-badge { color: #0284c7; }
+    .cta-cancel .quick-cta-badge { color: #dc2626; }
+    .cta-changes .quick-cta-badge { color: #d97706; }
+    .cta-refunds .quick-cta-badge { color: #16a34a; }
+
+    .quick-cta-title {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--primary-deep);
+      line-height: 1.15;
+      white-space: nowrap;
+    }
+
+    .quick-cta-desc {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+
+    .quick-cta-arrow {
+      color: #cbd5e1;
+      font-size: 1.1rem;
+      font-weight: 700;
+      transition: var(--transition);
+      margin-left: auto;
+    }
+
+    .quick-cta-card:hover .quick-cta-arrow {
+      color: var(--primary);
+      transform: translateX(3px);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #38bdf8;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.8px;
+      margin-bottom: 16px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #38bdf8 0%, #60a5fa 50%, #f97316 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: #cbd5e1;
+      max-width: 680px;
+      margin: 0 auto;
+      font-weight: 400;
+    }
+
+    /* Trust pills below hero title */
+    .hero-highlights {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 22px;
+      font-size: 0.88rem;
+      color: #94a3b8;
+    }
+
+    .hero-highlight-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-highlight-item .icon {
+      color: var(--success);
+    }
+
+    /* ==========================================================================
+       BOOKING ENGINE CARD
+       ========================================================================== */
+    .search-box-card {
+      position: relative;
+      z-index: 10;
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      padding: 28px;
+      color: var(--text-main);
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    .search-tabs {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 16px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .tab-pills {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tab-pill {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+
+    .tab-pill.active {
+      background: #e0f2fe;
+      color: var(--primary-dark);
+      border-color: #bae6fd;
+    }
+
+    .cabin-passengers-quick {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .quick-select {
+      background: #f1f5f9;
+      border: 1px solid var(--border-color);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+
+    /* Form Fields Grid */
+    .search-form-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1.2fr 1fr 1fr 1fr;
+      gap: 14px;
+      position: relative;
+    }
+
+    .input-field-group {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      position: relative;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .input-field-group:focus-within, .input-field-group:hover {
+      border-color: var(--primary);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+    }
+
+    .input-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .input-field-group input, .input-field-group select {
+      width: 100%;
+      border: none;
+      background: transparent;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      padding: 0;
+    }
+
+    .sub-code {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      font-weight: 500;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Swap button between From & To */
+    .swap-btn {
+      position: absolute;
+      left: calc(23% - 16px);
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+      z-index: 5;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .swap-btn:hover {
+      background: #f0f9ff;
+      border-color: var(--primary);
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    /* Search Button */
+    .btn-search-flights {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 1.05rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35);
+      padding: 0 18px;
+    }
+
+    .btn-search-flights:hover {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(2, 132, 199, 0.45);
+    }
+
+    /* Phone Deal Teaser below search */
+    .phone-discount-alert {
+      margin-top: 18px;
+      padding: 12px 18px;
+      background: #fff7ed;
+      border: 1px dashed #fdba74;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.88rem;
+    }
+
+    .phone-alert-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #9a3412;
+      font-weight: 600;
+    }
+
+    .phone-alert-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #c2410c;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .phone-alert-cta:hover {
+      text-decoration: underline;
+    }
+
+    /* ==========================================================================
+       TRUST BADGES BAR
+       ========================================================================== */
+    .trust-strip {
+      background: #ffffff;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .trust-icon-box {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: #f0f9ff;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .trust-item strong {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--primary-deep);
+    }
+
+    .trust-item span {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       SERVICES HUB (Cheap Trip Today)
+       ========================================================================== */
+    .section-title-wrap {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 48px;
+    }
+
+    .section-eyebrow {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .section-heading {
+      font-family: var(--font-heading);
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--primary-deep);
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    .services-section {
+      padding: 80px 0;
+      background: #ffffff;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: transparent;
+      transition: var(--transition);
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      background: #ffffff;
+      border-color: #cbd5e1;
+    }
+
+    .service-card:hover::before {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .service-header {
+      margin-bottom: 18px;
+    }
+
+    .service-icon-wrap {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background: #e0f2fe;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .service-card:nth-child(2) .service-icon-wrap { background: #fee2e2; color: #ef4444; }
+    .service-card:nth-child(3) .service-icon-wrap { background: #fef3c7; color: #d97706; }
+    .service-card:nth-child(4) .service-icon-wrap { background: #dcfce7; color: #16a34a; }
+    .service-card:nth-child(5) .service-icon-wrap { background: #ede9fe; color: #7c3aed; }
+    .service-card:nth-child(6) .service-icon-wrap { background: #ffedd5; color: #ea580c; }
+
+    .service-title {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary-deep);
+      margin-bottom: 10px;
+    }
+
+    .service-description {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    .service-features-list {
+      list-style: none;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .service-features-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .service-features-list .icon {
+      color: var(--success);
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .service-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 700;
+      background: #f1f5f9;
+      color: var(--primary-deep);
+      border: 1px solid var(--border-color);
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-btn {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    /* ==========================================================================
+       LIVE FLIGHT SEARCH DEMO / RESULTS SECTION
+       ========================================================================== */
+    .results-section {
+      padding: 60px 0 80px;
+      background: var(--bg-main);
+      display: none; /* toggled via JS */
+    }
+
+    .results-section.show {
+      display: block;
+    }
+
+    .flight-result-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      transition: var(--transition);
+    }
+
+    .flight-result-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #93c5fd;
+    }
+
+    .flight-airline-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 160px;
+    }
+
+    .airline-logo-box {
+      width: 44px;
+      height: 44px;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: var(--primary-deep);
+      font-size: 0.9rem;
+    }
+
+    .airline-info strong {
+      display: block;
+      font-size: 0.95rem;
+    }
+    .airline-info span {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .flight-timing-block {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      text-align: center;
+    }
+
+    .time-slot strong {
+      font-size: 1.25rem;
+      font-family: var(--font-heading);
+      display: block;
+    }
+    .time-slot span {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .duration-indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 120px;
+    }
+
+    .duration-time {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .flight-path-line {
+      width: 100%;
+      height: 2px;
+      background: #cbd5e1;
+      position: relative;
+      margin: 6px 0;
+    }
+    .flight-path-line::after {
+      content: "✈";
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: #ffffff;
+      padding: 0 4px;
+      font-size: 0.75rem;
+      color: var(--primary);
+    }
+
+    .flight-stops {
+      font-size: 0.72rem;
+      color: var(--success);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .flight-pricing-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      min-width: 170px;
+    }
+
+    .live-price {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--primary-deep);
+    }
+
+    .price-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .btn-book-now {
+      background: var(--accent);
+      color: #ffffff;
+      padding: 9px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .btn-book-now:hover {
+      background: var(--accent-hover);
+    }
+
+    /* ==========================================================================
+       POPULAR FLIGHT DEALS
+       ========================================================================== */
+    .deals-section {
+      padding: 80px 0;
+      background: #f1f5f9;
+    }
+
+    .deals-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .deal-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .deal-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: #93c5fd;
+    }
+
+    .deal-hero-image {
+      height: 140px;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .deal-badge-urgent {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(8px);
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem;
+      font-weight: 700;
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .deal-route-tag {
+      background: #ffffff;
+      color: var(--primary-deep);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 800;
+      align-self: flex-end;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .deal-card-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .deal-destination {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-deep);
+      margin-bottom: 4px;
+    }
+
+    .deal-trip-type {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .deal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+    }
+
+    .deal-price-block span {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    .deal-price-block strong {
+      font-size: 1.3rem;
+      font-family: var(--font-heading);
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .deal-call-btn {
+      background: #e0f2fe;
+      color: var(--primary-dark);
+      padding: 7px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .deal-call-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    /* ==========================================================================
+       WHY CHOOSE US / PEOPLE LOVE OUR PLATFORM (From Reference)
+       ========================================================================== */
+    .why-us-section {
+      padding: 80px 0;
+      background: #ffffff;
+    }
+
+    .why-us-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .why-us-content h2 {
+      font-family: var(--font-heading);
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: var(--primary-deep);
+      line-height: 1.25;
+      margin-bottom: 20px;
+    }
+
+    .why-us-content p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .why-reasons-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 34px;
+    }
+
+    .why-reason-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .reason-check-box {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #dcfce7;
+      color: #16a34a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .reason-text strong {
+      font-size: 1.05rem;
+      color: var(--primary-deep);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .reason-text span {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .why-call-box {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      padding: 34px;
+      border-radius: var(--radius-lg);
+      position: relative;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .why-call-box::before {
+      content: "";
+      position: absolute;
+      top: 0; right: 0;
+      width: 150px; height: 150px;
+      background: radial-gradient(circle, rgba(2, 132, 199, 0.4) 0%, transparent 70%);
+      border-radius: var(--radius-lg);
+      pointer-events: none;
+    }
+
+    .call-box-badge {
+      display: inline-block;
+      background: rgba(249, 115, 22, 0.2);
+      color: #fdba74;
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .call-box-title {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .call-box-desc {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .call-box-action {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .call-box-action:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .phone-big-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .phone-text-big strong {
+      font-family: var(--font-heading);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #ffffff;
+      display: block;
+      letter-spacing: 0.3px;
+    }
+
+    .phone-text-big span {
+      font-size: 0.8rem;
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       AIRLINE PARTNERS CAROUSEL/GRID
+       ========================================================================== */
+    .airlines-strip {
+      padding: 50px 0;
+      background: var(--bg-main);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .airlines-title {
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 24px;
+    }
+
+    .airline-logos-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 24px;
+      opacity: 0.75;
+    }
+
+    .airline-brand-item {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: #ffffff;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    /* ==========================================================================
+       FAQS ACCORDION
+       ========================================================================== */
+    .faq-section {
+      padding: 80px 0;
+      background: #ffffff;
+    }
+
+    .faq-wrapper {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      margin-bottom: 14px;
+      background: #ffffff;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .faq-item.active {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      padding: 20px 24px;
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-deep);
+      background: none;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .faq-icon {
+      transition: transform 0.3s ease;
+      color: var(--primary);
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+      padding: 0 24px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 400px;
+      padding-bottom: 22px;
+    }
+
+    /* ==========================================================================
+       REGULATORY DISCLAIMER & ARC ACCREDITATION (As in reference)
+       ========================================================================== */
+    .compliance-section {
+      background: #f8fafc;
+      padding: 50px 0;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .compliance-box {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+    }
+
+    .compliance-box h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary-deep);
+      margin-bottom: 10px;
+    }
+
+    .compliance-box ul {
+      margin: 12px 0 16px 20px;
+    }
+
+    .compliance-box li {
+      margin-bottom: 6px;
+    }
+
+    /* ==========================================================================
+       SITE FOOTER
+       ========================================================================== */
+    .site-footer {
+      background: #0b132b;
+      color: #94a3b8;
+      padding: 70px 0 30px;
+      font-size: 0.9rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-brand h3 {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand p {
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .footer-title {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a:hover {
+      color: #ffffff;
+      transform: translateX(4px);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .contact-item .icon {
+      color: var(--primary);
+      margin-top: 2px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.82rem;
+    }
+
+    /* ==========================================================================
+       FULL-WIDTH STICKY BOTTOM PHONE BAR (MOBILE & DESKTOP)
+       ========================================================================== */
+    .sticky-call-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 10px 20px;
+      z-index: 2000;
+      display: block !important;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .sticky-inner-full {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    .btn-sticky-full {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #c2410c 100%);
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 20px rgba(249, 115, 22, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .btn-sticky-full:hover {
+      background: linear-gradient(135deg, #fb923c 0%, #ea580c 50%, #9a3412 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(249, 115, 22, 0.65);
+      color: #ffffff;
+    }
+
+    /* Continuous Shimmer Light Effect */
+    .btn-sticky-full::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 40%;
+      height: 200%;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.35) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: rotate(25deg);
+      animation: stickyShimmer 3.5s infinite;
+    }
+
+    @keyframes stickyShimmer {
+      0% { left: -60%; }
+      40% { left: 140%; }
+      100% { left: 140%; }
+    }
+
+    .sticky-left-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .sticky-phone-disc {
+      width: 42px;
+      height: 42px;
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: phoneRing 2s infinite ease-in-out;
+      flex-shrink: 0;
+    }
+
+    .sticky-text-group {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+      text-align: left;
+    }
+
+    .sticky-title-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 700;
+      opacity: 0.95;
+    }
+
+    .sticky-main-num {
+      font-family: var(--font-heading);
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+
+    .sticky-right-tags {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sticky-pill-urgent {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sticky-save-badge {
+      background: #ffffff;
+      color: #ea580c;
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ==========================================================================
+       MODAL / POPUP
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      max-width: 520px;
+      width: 100%;
+      padding: 34px;
+      position: relative;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      animation: modalZoom 0.3s ease-out;
+    }
+
+    @keyframes modalZoom {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: #f1f5f9;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+    .modal-close:hover {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    .modal-badge {
+      background: #fee2e2;
+      color: #dc2626;
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      display: inline-block;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+
+    .modal-phone-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      color: #ffffff;
+      font-size: 1.4rem;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      padding: 16px 24px;
+      border-radius: var(--radius-md);
+      margin: 20px 0;
+      box-shadow: 0 10px 25px rgba(249, 115, 22, 0.4);
+    }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .hero-title { font-size: 2.4rem; }
+      .search-form-grid { grid-template-columns: 1fr 1fr; }
+      .swap-btn { display: none; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .deals-grid { grid-template-columns: repeat(2, 1fr); }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .top-bar-right { display: none; }
+      .hero-title { font-size: 1.95rem; }
+      .hero-subtitle { font-size: 0.98rem; }
+      
+      /* Phone View 2/2 Collam for 4 CTA buttons */
+      .quick-cta-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+      }
+      .quick-cta-card {
+        padding: 12px 10px !important;
+        gap: 8px !important;
+      }
+      .quick-cta-icon-box {
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 10px !important;
+      }
+      .quick-cta-title {
+        font-size: 0.95rem !important;
+      }
+      .quick-cta-badge {
+        font-size: 0.62rem !important;
+      }
+      .quick-cta-desc {
+        display: none !important;
+      }
+      .quick-cta-arrow {
+        display: none !important;
+      }
+
+      .search-form-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .deals-grid { grid-template-columns: 1fr; }
+      .why-us-container { grid-template-columns: 1fr; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .flight-result-card { flex-direction: column; align-items: flex-start; }
+      .flight-pricing-cta { align-items: flex-start; width: 100%; }
+      .footer-grid { grid-template-columns: 1fr; }
+      
+      /* Full width bottom sticky phone button on mobile */
+      .sticky-call-bar {
+        padding: 8px 10px !important;
+      }
+      .btn-sticky-full {
+        padding: 10px 14px !important;
+      }
+      .sticky-main-num {
+        font-size: 1.2rem !important;
+      }
+      .sticky-title-tag {
+        font-size: 0.65rem !important;
+      }
+      .sticky-phone-disc {
+        width: 36px !important;
+        height: 36px !important;
+      }
+      .sticky-pill-urgent {
+        display: none !important;
+      }
+      .sticky-save-badge {
+        font-size: 0.76rem !important;
+        padding: 5px 10px !important;
+      }
+      body {
+        padding-bottom: 86px !important;
+      }
+
+      .site-header { height: 68px; }
+      .brand-name { font-size: 1.25rem; }
+      .call-desk-btn .call-subtext { display: none; }
+      .call-desk-btn .call-number { font-size: 0.95rem; }
+      .call-desk-btn { padding: 8px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP ANNOUNCEMENT BAR
+       ========================================================================== -->
+  <aside class="top-bar">
+    <div class="container top-bar-content">
+      <div class="top-bar-left">
+        <span class="pulse-badge"><span class="pulse-dot"></span> Phone Exclusive</span>
+        <span>Unpublished Airfare Discounts Available! Save up to <strong>$50 extra</strong> per passenger by phone.</span>
+      </div>
+      <div class="top-bar-right">
+        <span>Speak to an Agent (24/7):</span>
+        <a href="tel:+18888831627" class="top-phone-link">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          (888) 883-1627
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       MAIN NAVIGATION HEADER
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container nav-inner">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon-box">
+          <svg class="icon" style="width: 26px; height: 26px;" viewBox="0 0 24 24">
+            <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.3c.4-.2.6-.6.5-1.1z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">Cheap Trip<span> Today</span></div>
+          <div class="brand-tagline">ARC Accredited Travel Agency</div>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#deals">Flight Deals</a></li>
+        <li><a href="#why-us">Why Us</a></li>
+        <li><a href="#faqs">Travel FAQs</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="header-actions">
+        <a href="tel:+18888831627" class="call-desk-btn">
+          <div class="call-icon-wrap">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="call-text-group">
+            <span class="call-subtext">24/7 Agent Desk</span>
+            <span class="call-number">(888) 883-1627</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       HERO SECTION WITH FLIGHT ENGINE
+       ========================================================================== -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <svg class="icon" style="width: 16px; height: 16px;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Best Price Guarantee & 24/7 Live Customer Desk
+        </div>
+        <h1 class="hero-title">Book Cheap Flights & Get <span>Instant Ticket Assistance</span></h1>
+        <p class="hero-subtitle">New Reservations • Rapid Cancellations • Flight Changes • Ticket Refunds • Emergency Assistance with Major Global Airlines</p>
+        
+        <div class="hero-highlights">
+          <div class="hero-highlight-item">
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            No Wait Phone Queue
+          </div>
+          <div class="hero-highlight-item">
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Zero Hidden Fees
+          </div>
+          <div class="hero-highlight-item">
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            ARC Accredited Partner
+          </div>
+          <div class="hero-highlight-item">
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            24h Free Cancellation Policy
+          </div>
+        </div>
+      </div>
+
+      <!-- QUICK 4-CTA ACTION GRID (2x2 on Mobile Phone View, 4 Columns on Desktop) -->
+      <div class="quick-cta-wrapper">
+        <div class="quick-cta-grid">
+          <!-- CTA 1: New Booking -->
+          <div class="quick-cta-card cta-booking" onclick="openPhoneModal('New Flight Booking')">
+            <div class="quick-cta-icon-box">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.3c.4-.2.6-.6.5-1.1z"/></svg>
+            </div>
+            <div class="quick-cta-text">
+              <span class="quick-cta-badge">Up to 40% Off</span>
+              <span class="quick-cta-title">New Booking</span>
+              <span class="quick-cta-desc">Unpublished Airfares</span>
+            </div>
+            <span class="quick-cta-arrow">→</span>
+          </div>
+
+          <!-- CTA 2: Cancellations -->
+          <div class="quick-cta-card cta-cancel" onclick="openPhoneModal('Flight Cancellation Assistance')">
+            <div class="quick-cta-icon-box">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            </div>
+            <div class="quick-cta-text">
+              <span class="quick-cta-badge">24h Free Void</span>
+              <span class="quick-cta-title">Cancellations</span>
+              <span class="quick-cta-desc">Penalty Waivers</span>
+            </div>
+            <span class="quick-cta-arrow">→</span>
+          </div>
+
+          <!-- CTA 3: Changes -->
+          <div class="quick-cta-card cta-changes" onclick="openPhoneModal('Flight Changes & Rescheduling')">
+            <div class="quick-cta-icon-box">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            </div>
+            <div class="quick-cta-text">
+              <span class="quick-cta-badge">Instant Rebook</span>
+              <span class="quick-cta-title">Changes</span>
+              <span class="quick-cta-desc">Date, Name & Route</span>
+            </div>
+            <span class="quick-cta-arrow">→</span>
+          </div>
+
+          <!-- CTA 4: Refunds -->
+          <div class="quick-cta-card cta-refunds" onclick="openPhoneModal('Refunds & Ticket Credits')">
+            <div class="quick-cta-icon-box">
+              <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><circle cx="12" cy="15" r="1"/></svg>
+            </div>
+            <div class="quick-cta-text">
+              <span class="quick-cta-badge">Fast Settlement</span>
+              <span class="quick-cta-title">Refunds</span>
+              <span class="quick-cta-desc">Cash & Airline Credits</span>
+            </div>
+            <span class="quick-cta-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEARCH ENGINE CARD -->
+      <div class="search-box-card">
+        <div class="search-tabs">
+          <div class="tab-pills">
+            <button type="button" class="tab-pill active" onclick="switchTripType('roundtrip', this)">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
+              Round Trip
+            </button>
+            <button type="button" class="tab-pill" onclick="switchTripType('oneway', this)">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              One Way
+            </button>
+            <button type="button" class="tab-pill" onclick="switchTripType('multicity', this)">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+              Multi-City
+            </button>
+          </div>
+
+          <div class="cabin-passengers-quick">
+            <select class="quick-select" id="cabinClass">
+              <option value="Economy">Economy</option>
+              <option value="Premium Economy">Premium Economy</option>
+              <option value="Business">Business Class</option>
+              <option value="First">First Class</option>
+            </select>
+            <select class="quick-select" id="passengerCount">
+              <option value="1">1 Passenger</option>
+              <option value="2">2 Passengers</option>
+              <option value="3">3 Passengers</option>
+              <option value="4">4+ Passengers (Group)</option>
+            </select>
+          </div>
+        </div>
+
+        <form id="flightSearchForm" onsubmit="handleFlightSearch(event)">
+          <div class="search-form-grid">
+            <!-- Departure -->
+            <div class="input-field-group">
+              <label class="input-label" for="fromAirport">From (Departure)</label>
+              <input type="text" id="fromAirport" value="New York (JFK)" required placeholder="City or Airport">
+              <div class="sub-code">John F. Kennedy Intl Airport</div>
+            </div>
+
+            <!-- Swap Button -->
+            <button type="button" class="swap-btn" onclick="swapAirports()" title="Swap Departure and Arrival">
+              <svg class="icon" viewBox="0 0 24 24"><path d="m16 3 4 4-4 4M20 7H4m4 14-4-4 4-4m-4 4h16"/></svg>
+            </button>
+
+            <!-- Arrival -->
+            <div class="input-field-group">
+              <label class="input-label" for="toAirport">To (Destination)</label>
+              <input type="text" id="toAirport" value="Los Angeles (LAX)" required placeholder="City or Airport">
+              <div class="sub-code">Los Angeles International</div>
+            </div>
+
+            <!-- Depart Date -->
+            <div class="input-field-group">
+              <label class="input-label" for="departDate">Depart Date</label>
+              <input type="date" id="departDate" required>
+              <div class="sub-code">Select travel date</div>
+            </div>
+
+            <!-- Return Date -->
+            <div class="input-field-group" id="returnDateWrap">
+              <label class="input-label" for="returnDate">Return Date</label>
+              <input type="date" id="returnDate">
+              <div class="sub-code">Select return date</div>
+            </div>
+
+            <!-- Search CTA -->
+            <button type="submit" class="btn-search-flights">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <span>Search Flights</span>
+            </button>
+          </div>
+        </form>
+
+        <div class="phone-discount-alert">
+          <div class="phone-alert-left">
+            <svg class="icon" style="color: #ea580c;" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>Traveling in less than 24 hours or need special fare assistance? Call directly for unpublished agent consolidator rates.</span>
+          </div>
+          <a href="tel:+18888831627" class="phone-alert-cta">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>Call (888) 883-1627</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       TRUST BADGES BAR
+       ========================================================================== */ -->
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-icon-box">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <strong>Zero Wait Time</strong>
+            <span>Direct phone connection to flight experts</span>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-icon-box">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div>
+            <strong>No Hidden Charges</strong>
+            <span>Transparent airfares with breakdown</span>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-icon-box">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <strong>100% Secure Booking</strong>
+            <span>ARC accredited & 256-bit SSL encrypted</span>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-icon-box">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div>
+            <strong>24/7 Agent Support</strong>
+            <span>Assistance before, during & after flight</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       DYNAMIC RESULTS CONTAINER (Populated on search)
+       ========================================================================== -->
+  <section class="results-section" id="resultsSection">
+    <div class="container">
+      <div class="section-title-wrap" style="margin-bottom: 30px;">
+        <span class="section-eyebrow">Instant Available Flights</span>
+        <h2 class="section-heading" id="resultsHeading">Best Flight Matches</h2>
+        <p class="section-desc">Comparing unpublished consolidator fares and standard airline inventories.</p>
+      </div>
+
+      <div id="resultsList">
+        <!-- Results injected dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SERVICES HUB (Cheap Trip Today)
+       ========================================================================== -->
+  <section class="services-section" id="services">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-eyebrow">Comprehensive Airline Services</span>
+        <h2 class="section-heading">How Our Flight Desk Assists You</h2>
+        <p class="section-desc">From new flight bookings to complex itinerary changes and rapid cancellations, our certified agents handle all airline interactions with ease.</p>
+      </div>
+
+      <div class="services-grid">
+        <!-- Card 1: New Booking -->
+        <div class="service-card">
+          <div class="service-header">
+            <div class="service-icon-wrap">
+              <svg class="icon" style="width: 28px; height: 28px;" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.3c.4-.2.6-.6.5-1.1z"/></svg>
+            </div>
+            <h3 class="service-title">New Flight Booking</h3>
+            <p class="service-description">Book domestic and international flights across 500+ carriers with exclusive consolidator wholesale discounts.</p>
+            <ul class="service-features-list">
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Unpublished phone-only discounts</li>
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Instant electronic ticket delivery</li>
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Flexible fare options</li>
+            </ul>
+          </div>
+          <button type="button" class="service-btn" onclick="openPhoneModal('New Flight Booking')">Book With Agent →</button>
+        </div>
+
+        <!-- Card 2: Cancellations -->
+        <div class="service-card">
+          <div class="service-header">
+            <div class="service-icon-wrap">
+              <svg class="icon" style="width: 28px; height: 28px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            </div>
+            <h3 class="service-title">Flight Cancellations</h3>
+            <p class="service-description">Need to cancel your reservation? We navigate airline penalty waivers, 24-hour grace periods, and emergency clauses.</p>
+            <ul class="service-features-list">
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 24-Hour risk-free cancellation</li>
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Airline waiver assistance</li>
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Fast cancellation confirmation</li>
+            </ul>
+          </div>
+          <button type="button" class="service-btn" onclick="openPhoneModal('Flight Cancellation Assistance')">Cancel Flight Now →</button>
+        </div>
+
+        <!-- Card 3: Date & Route Changes -->
+        <div class="service-card">
+          <div class="service-header">
+            <div class="service-icon-wrap">
+              <svg class="icon" style="width: 28px; height: 28px;" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            </div>
+            <h3 class="service-title">Flight Changes & Rescheduling</h3>
+            <p class="service-description">Change flight dates, times, departure points, or passenger details with minimal airline change fees.</p>
+            <ul class="service-features-list">
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Same-day flight change support</li>
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Route & origin/destination swaps</li>
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Minimal fare difference re-calculation</li>
+            </ul>
+          </div>
+          <button type="button" class="service-btn" onclick="openPhoneModal('Flight Changes & Rescheduling')">Change My Flight →</button>
+        </div>
+
+        <!-- Card 4: Refunds & Credits -->
+        <div class="service-card">
+          <div class="service-header">
+            <div class="service-icon-wrap">
+              <svg class="icon" style="width: 28px; height: 28px;" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            </div>
+            <h3 class="service-title">Refunds & Airline Credits</h3>
+            <p class="service-description">Claim eligible cash refunds directly to your original payment method, or convert unused tickets to future airline e-credits.</p>
+            <ul class="service-features-list">
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Original payment method refunds</li>
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> E-Credit and voucher tracking</li>
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Expedited airline audit submission</li>
+            </ul>
+          </div>
+          <button type="button" class="service-btn" onclick="openPhoneModal('Refunds & Ticket Credits')">Check Refund Status →</button>
+        </div>
+
+        <!-- Card 5: Seat & Baggage Upgrades -->
+        <div class="service-card">
+          <div class="service-header">
+            <div class="service-icon-wrap">
+              <svg class="icon" style="width: 28px; height: 28px;" viewBox="0 0 24 24"><path d="M6 19v-9a6 6 0 0 1 12 0v9M6 19h12M9 19v-4h6v4"/></svg>
+            </div>
+            <h3 class="service-title">Seats & Baggage Upgrades</h3>
+            <p class="service-description">Select preferred seats, extra legroom, business class upgrades, and prepay checked luggage at discounted advance rates.</p>
+            <ul class="service-features-list">
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Extra legroom & exit row booking</li>
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Prepaid baggage discount</li>
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Special assistance & pet travel</li>
+            </ul>
+          </div>
+          <button type="button" class="service-btn" onclick="openPhoneModal('Seat & Baggage Upgrades')">Manage Add-Ons →</button>
+        </div>
+
+        <!-- Card 6: Group & Emergency Booking -->
+        <div class="service-card">
+          <div class="service-header">
+            <div class="service-icon-wrap">
+              <svg class="icon" style="width: 28px; height: 28px;" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3 class="service-title">Group & Emergency Travel</h3>
+            <p class="service-description">Dedicated desk for groups of 8 or more, corporate blocks, bereavement fares, and urgent same-day departure requests.</p>
+            <ul class="service-features-list">
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Group block rate locks</li>
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Bereavement & emergency tariffs</li>
+              <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Dedicated senior travel concierge</li>
+            </ul>
+          </div>
+          <button type="button" class="service-btn" onclick="openPhoneModal('Group & Urgent Booking')">Request Group Quote →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       POPULAR FLIGHT DEALS
+       ========================================================================== -->
+  <section class="deals-section" id="deals">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-eyebrow">Top Discounted Destinations</span>
+        <h2 class="section-heading">Featured Flight Deals This Week</h2>
+        <p class="section-desc">Hand-picked fares negotiated directly with top domestic and international carriers.</p>
+      </div>
+
+      <div class="deals-grid">
+        <!-- Deal 1 -->
+        <div class="deal-card">
+          <div class="deal-hero-image" style="background: linear-gradient(rgba(15,23,42,0.35), rgba(15,23,42,0.65)), radial-gradient(circle, #0284c7 0%, #0f172a 100%);">
+            <span class="deal-badge-urgent">🔥 4 Seats Left</span>
+            <span class="deal-route-tag">JFK ➔ LAX</span>
+          </div>
+          <div class="deal-card-body">
+            <h4 class="deal-destination">Los Angeles, California</h4>
+            <div class="deal-trip-type">Round Trip • Economy • Non-Stop</div>
+            <div class="deal-footer">
+              <div class="deal-price-block">
+                <span>From</span>
+                <strong>$189*</strong>
+              </div>
+              <a href="tel:+18888831627" class="deal-call-btn">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Call to Lock
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deal 2 -->
+        <div class="deal-card">
+          <div class="deal-hero-image" style="background: linear-gradient(rgba(15,23,42,0.35), rgba(15,23,42,0.65)), radial-gradient(circle, #f97316 0%, #0f172a 100%);">
+            <span class="deal-badge-urgent">⚡ Secret Fare</span>
+            <span class="deal-route-tag">MIA ➔ LHR</span>
+          </div>
+          <div class="deal-card-body">
+            <h4 class="deal-destination">London, United Kingdom</h4>
+            <div class="deal-trip-type">Round Trip • Premium Cabin Deal</div>
+            <div class="deal-footer">
+              <div class="deal-price-block">
+                <span>From</span>
+                <strong>$449*</strong>
+              </div>
+              <a href="tel:+18888831627" class="deal-call-btn">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Call to Lock
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deal 3 -->
+        <div class="deal-card">
+          <div class="deal-hero-image" style="background: linear-gradient(rgba(15,23,42,0.35), rgba(15,23,42,0.65)), radial-gradient(circle, #10b981 0%, #0f172a 100%);">
+            <span class="deal-badge-urgent">✨ Save 35%</span>
+            <span class="deal-route-tag">ORD ➔ CUN</span>
+          </div>
+          <div class="deal-card-body">
+            <h4 class="deal-destination">Cancun, Mexico</h4>
+            <div class="deal-trip-type">Round Trip • Direct Flights</div>
+            <div class="deal-footer">
+              <div class="deal-price-block">
+                <span>From</span>
+                <strong>$215*</strong>
+              </div>
+              <a href="tel:+18888831627" class="deal-call-btn">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Call to Lock
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deal 4 -->
+        <div class="deal-card">
+          <div class="deal-hero-image" style="background: linear-gradient(rgba(15,23,42,0.35), rgba(15,23,42,0.65)), radial-gradient(circle, #8b5cf6 0%, #0f172a 100%);">
+            <span class="deal-badge-urgent">💎 Hot Deal</span>
+            <span class="deal-route-tag">SFO ➔ NRT</span>
+          </div>
+          <div class="deal-card-body">
+            <h4 class="deal-destination">Tokyo, Japan</h4>
+            <div class="deal-trip-type">Round Trip • Full Service Carrier</div>
+            <div class="deal-footer">
+              <div class="deal-price-block">
+                <span>From</span>
+                <strong>$680*</strong>
+              </div>
+              <a href="tel:+18888831627" class="deal-call-btn">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Call to Lock
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       WHY CHOOSE US SECTION (Cheap Trip Today)
+       ========================================================================== -->
+  <section class="why-us-section" id="why-us">
+    <div class="container">
+      <div class="why-us-container">
+        <div class="why-us-content">
+          <span class="section-eyebrow">The Cheap Trip Today Difference</span>
+          <h2>Why Travelers Love Our Airline Booking Platform</h2>
+          <p>People love our platform because it’s so fast to use, transparent, and provides dedicated phone agents who actually answer within seconds.</p>
+
+          <ul class="why-reasons-list">
+            <li class="why-reason-item">
+              <div class="reason-check-box">
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="reason-text">
+                <strong>No Wait Time Phone Connect</strong>
+                <span>Skip the 2-hour airline hold queues. Our agents pick up in under 30 seconds.</span>
+              </div>
+            </li>
+
+            <li class="why-reason-item">
+              <div class="reason-check-box">
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="reason-text">
+                <strong>No Hidden Charges or Gotchas</strong>
+                <span>What you see is what you pay. Full itemized breakdowns of taxes, fees, and baggage.</span>
+              </div>
+            </li>
+
+            <li class="why-reason-item">
+              <div class="reason-check-box">
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="reason-text">
+                <strong>Knowledgeable Customer Support</strong>
+                <span>Certified ticketing specialists trained in airline reservation systems and waivers.</span>
+              </div>
+            </li>
+
+            <li class="why-reason-item">
+              <div class="reason-check-box">
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="reason-text">
+                <strong>24/7 Dedicated Support Desk</strong>
+                <span>Day or night, weekends or holidays, our emergency response team is on standby.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="why-call-box">
+          <span class="call-box-badge">Exclusive Phone-Only Offers</span>
+          <h3 class="call-box-title">Speak With Our Certified Flight Booking Experts</h3>
+          <p class="call-box-desc">Airlines provide specialized wholesale rates that cannot be published publicly online. Call our licensed desk right now to unlock unpublished bargains.</p>
+
+          <a href="tel:+18888831627" class="call-box-action">
+            <div class="phone-big-circle">
+              <svg class="icon" style="width: 24px; height: 24px;" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="phone-text-big">
+              <span>Toll Free Priority Desk</span>
+              <strong>(888) 883-1627</strong>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       AIRLINE PARTNERS STRIP
+       ========================================================================== -->
+  <section class="airlines-strip">
+    <div class="container">
+      <div class="airlines-title">Tickets & Services Available For All Major Carriers</div>
+      <div class="airline-logos-wrap">
+        <div class="airline-brand-item">✈ American Airlines</div>
+        <div class="airline-brand-item">✈ Delta Air Lines</div>
+        <div class="airline-brand-item">✈ United Airlines</div>
+        <div class="airline-brand-item">✈ Southwest</div>
+        <div class="airline-brand-item">✈ Alaska Airlines</div>
+        <div class="airline-brand-item">✈ JetBlue Airways</div>
+        <div class="airline-brand-item">✈ British Airways</div>
+        <div class="airline-brand-item">✈ Air Canada</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FAQS ACCORDION
+       ========================================================================== -->
+  <section class="faq-section" id="faqs">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-eyebrow">Clear Answers</span>
+        <h2 class="section-heading">Frequently Asked Questions</h2>
+        <p class="section-desc">Got questions regarding booking, changes, or cancellations? Here is what you need to know.</p>
+      </div>
+
+      <div class="faq-wrapper">
+        <div class="faq-item active">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Can I cancel my flight booking within 24 hours for free?</span>
+            <svg class="icon faq-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes! Under U.S. Department of Transportation regulations and standard agency terms, tickets booked at least 7 days prior to departure can generally be canceled within 24 hours of booking for a full refund without standard airline penalties. Contact our desk immediately to execute your 24-hour void.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Why are phone-exclusive flight deals cheaper than online?</span>
+            <svg class="icon faq-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Airlines maintain consolidator contracts and wholesale block rates that prohibit public advertising on search engines to protect standard retail pricing. When you call our licensed desk, our agents can apply these confidential wholesale rate codes directly to your itinerary.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>How do flight date and itinerary changes work?</span>
+            <svg class="icon faq-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>To change your flight, call our customer support with your 6-character booking reference (PNR). Our agents will review the fare rules of your specific ticket, identify flights with lower fare differences, and reissue your electronic ticket instantly.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>How long does an airline refund take to reach my bank?</span>
+            <svg class="icon faq-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Once our agency processes the cancellation and submits the refund audit to the airline's GDS system, funds are typically returned to your original credit or debit card within 7 to 14 business days, depending on your card issuer's billing cycle.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Can I use my existing airline travel credits with you?</span>
+            <svg class="icon faq-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. If you hold an unused electronic ticket credit or flight coupon from a major airline, provide the 13-digit ticket number to our booking specialists. We can redeem and apply eligible credit toward your new itinerary.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       LEGAL DISCLAIMER & ARC ACCREDITATION (As required on reference website)
+       ========================================================================== -->
+  <section class="compliance-section" id="disclaimer">
+    <div class="container">
+      <div class="compliance-box">
+        <h4>Licensed Travel Agency & Regulatory Disclaimer</h4>
+        <p><strong>Cheap Trip Today</strong> acts as an independent travel agency and intermediary between customers and various worldwide airlines to facilitate the purchase, modification, cancellation, or upgrade of airline tickets. Please note that we are not the airline carrier itself, but an accredited third-party service provider.</p>
+        
+        <ul>
+          <li><strong>Privacy Commitment:</strong> Cheap Trip Today prioritizes your data privacy. We collect essential contact information solely for reservation, ticketing, and verification purposes.</li>
+          <li><strong>Fare Accuracy & Policies:</strong> All airline reservations are subject to the specific carriage terms, baggage restrictions, and cancellation rules of the operating airline.</li>
+          <li><strong>Taxes & Fees:</strong> Displayed airfares include applicable government taxes, carrier-imposed surcharges, and agency service fees.</li>
+          <li><strong>Flight Disruptions:</strong> Schedule modifications, weather cancellations, and mechanical delays are the sole operating responsibility of the respective airline carrier.</li>
+        </ul>
+        <p>By browsing this website and booking air travel, you acknowledge and agree to our Terms of Service, Carrier Conditions of Carriage, and Privacy Policy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SITE FOOTER
+       ========================================================================== -->
+  <footer class="site-footer" id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Cheap Trip Today</h3>
+          <p>Your reliable flight booking companion. Providing 24/7 personalized ticketing assistance, secret consolidator discounts, and seamless reservation changes for travelers worldwide.</p>
+          <p style="font-size: 0.82rem; color: #64748b;">ARC Accredited • Verified E-Ticketing • SSL Verified</p>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Quick Services</h4>
+          <ul class="footer-links">
+            <li><a href="javascript:void(0)" onclick="openPhoneModal('New Flight Booking')">New Flight Reservation</a></li>
+            <li><a href="javascript:void(0)" onclick="openPhoneModal('Flight Cancellation')">Cancel Existing Ticket</a></li>
+            <li><a href="javascript:void(0)" onclick="openPhoneModal('Flight Reschedule')">Change Flight Dates</a></li>
+            <li><a href="javascript:void(0)" onclick="openPhoneModal('Seat & Baggage')">Seats & Baggage Add-on</a></li>
+            <li><a href="javascript:void(0)" onclick="openPhoneModal('Refund Status')">Check Refund Status</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Important Links</h4>
+          <ul class="footer-links">
+            <li><a href="/refund-policy">24-Hour Policy</a></li>
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+            <li><a href="/terms-and-conditions">Terms & Conditions</a></li>
+            <li><a href="#disclaimer">Baggage Guidelines</a></li>
+            <li><a href="#disclaimer">Travel Advisory</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Customer Desk</h4>
+          <div class="contact-item">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <div>
+              <strong style="color: #ffffff; display: block; font-size: 1.1rem;">(888) 883-1627</strong>
+              <span style="font-size: 0.8rem;">Toll-Free USA & Canada (24/7)</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div>
+              <span style="color: #ffffff;">support@cheaptriptoday.com</span>
+              <span style="display: block; font-size: 0.8rem;">Email Ticketing Support</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div>
+              <span>West Fargo, ND 58078-2008, United States</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>Copyright © 2026 CheapTripToday.com – All Rights Reserved.</div>
+        <div>ARC Accredited Travel Agency • Verified SSL Secured Platform</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       FULL-WIDTH STICKY BOTTOM PHONE BAR (MOBILE & DESKTOP)
+       ========================================================================== -->
+  <div class="sticky-call-bar">
+    <div class="sticky-inner-full">
+      <a href="tel:+18888831627" class="btn-sticky-full">
+        <div class="sticky-left-box">
+          <div class="sticky-phone-disc">
+            <svg class="icon" style="width: 22px; height: 22px;" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="sticky-text-group">
+            <span class="sticky-title-tag">CALL 24/7 AIRLINE DESK (TOLL-FREE)</span>
+            <strong class="sticky-main-num">(888) 883-1627</strong>
+          </div>
+        </div>
+
+        <div class="sticky-right-tags">
+          <span class="sticky-pill-urgent">⚡ Unpublished Secret Fares</span>
+          <span class="sticky-save-badge">Tap to Call Now</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       INTERACTIVE PHONE-ONLY DEALS MODAL
+       ========================================================================== -->
+  <div class="modal-overlay" id="phoneModal">
+    <div class="modal-box">
+      <button type="button" class="modal-close" onclick="closePhoneModal()">✕</button>
+      <span class="modal-badge" id="modalServiceBadge">Exclusive Phone Offer</span>
+      <h3 style="font-family: var(--font-heading); font-size: 1.6rem; color: var(--primary-deep); margin-bottom: 8px;" id="modalServiceTitle">Unlock Secret Phone Fare</h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 14px;">This airline requires direct agent confirmation for wholesale ticket pricing. Call now to lock in this unpublished rate before seats expire!</p>
+      
+      <a href="tel:+18888831627" class="modal-phone-btn">
+        <svg class="icon" style="width: 24px; height: 24px;" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (888) 883-1627
+      </a>
+
+      <div style="font-size: 0.8rem; color: var(--text-light); display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <svg class="icon" style="color: var(--success); width: 14px; height: 14px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Instant 0-Second Connect • No Automated Robots</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       INTERACTIVE JAVASCRIPT
+       ========================================================================== -->
+  <script>
+    // 1. Set Default Travel Dates (Depart: Tomorrow, Return: +7 Days)
+    document.addEventListener('DOMContentLoaded', () => {
+      const today = new Date();
+      
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      
+      const nextWeek = new Date(today);
+      nextWeek.setDate(nextWeek.getDate() + 8);
+      
+      const departInput = document.getElementById('departDate');
+      const returnInput = document.getElementById('returnDate');
+      
+      if (departInput) {
+        departInput.value = tomorrow.toISOString().split('T')[0];
+        departInput.min = today.toISOString().split('T')[0];
+      }
+      if (returnInput) {
+        returnInput.value = nextWeek.toISOString().split('T')[0];
+        returnInput.min = tomorrow.toISOString().split('T')[0];
+      }
+    });
+
+    // 2. Trip Type Switcher (Round Trip, One Way, Multi-city)
+    function switchTripType(type, element) {
+      document.querySelectorAll('.tab-pill').forEach(el => el.classList.remove('active'));
+      element.classList.add('active');
+      
+      const returnWrap = document.getElementById('returnDateWrap');
+      if (type === 'oneway') {
+        returnWrap.style.opacity = '0.35';
+        returnWrap.style.pointerEvents = 'none';
+        document.getElementById('returnDate').required = false;
+      } else {
+        returnWrap.style.opacity = '1';
+        returnWrap.style.pointerEvents = 'auto';
+        document.getElementById('returnDate').required = (type === 'roundtrip');
+      }
+    }
+
+    // 3. Swap Departure and Arrival Airports
+    function swapAirports() {
+      const fromInput = document.getElementById('fromAirport');
+      const toInput = document.getElementById('toAirport');
+      const tempVal = fromInput.value;
+      fromInput.value = toInput.value;
+      toInput.value = tempVal;
+    }
+
+    // 4. Handle Flight Search Action & Render Realistic Live Flight Matches
+    function handleFlightSearch(event) {
+      event.preventDefault();
+      
+      const fromVal = document.getElementById('fromAirport').value;
+      const toVal = document.getElementById('toAirport').value;
+      const cabin = document.getElementById('cabinClass').value;
+      const passengers = document.getElementById('passengerCount').value;
+
+      const resultsSection = document.getElementById('resultsSection');
+      const resultsList = document.getElementById('resultsList');
+      const resultsHeading = document.getElementById('resultsHeading');
+
+      resultsHeading.textContent = `${fromVal} ➔ ${toVal} Available Flights`;
+      resultsSection.classList.add('show');
+
+      // Realistic mock live results
+      const mockFlights = [
+        {
+          airline: 'Delta Air Lines',
+          code: 'DL 1420',
+          logo: 'DL',
+          departTime: '06:45 AM',
+          arriveTime: '09:55 AM',
+          duration: '6h 10m',
+          stops: 'Nonstop',
+          price: 194,
+          seats: '3 seats left'
+        },
+        {
+          airline: 'American Airlines',
+          code: 'AA 288',
+          logo: 'AA',
+          departTime: '08:30 AM',
+          arriveTime: '11:42 AM',
+          duration: '6h 12m',
+          stops: 'Nonstop',
+          price: 218,
+          seats: 'Exclusive Fare'
+        },
+        {
+          airline: 'United Airlines',
+          code: 'UA 1104',
+          logo: 'UA',
+          departTime: '01:15 PM',
+          arriveTime: '04:28 PM',
+          duration: '6h 13m',
+          stops: 'Nonstop',
+          price: 229,
+          seats: 'Best Value'
+        },
+        {
+          airline: 'Alaska Airlines',
+          code: 'AS 614',
+          logo: 'AS',
+          departTime: '05:20 PM',
+          arriveTime: '08:45 PM',
+          duration: '6h 25m',
+          stops: '1 Short Stop',
+          price: 178,
+          seats: 'Unpublished Special'
+        }
+      ];
+
+      resultsList.innerHTML = mockFlights.map(flight => `
+        <div class="flight-result-card">
+          <div class="flight-airline-badge">
+            <div class="airline-logo-box">${flight.logo}</div>
+            <div class="airline-info">
+              <strong>${flight.airline}</strong>
+              <span>${flight.code} • ${cabin}</span>
+            </div>
+          </div>
+
+          <div class="flight-timing-block">
+            <div class="time-slot">
+              <strong>${flight.departTime}</strong>
+              <span>${fromVal.split(' ')[0]}</span>
+            </div>
+
+            <div class="duration-indicator">
+              <span class="duration-time">${flight.duration}</span>
+              <div class="flight-path-line"></div>
+              <span class="flight-stops">${flight.stops}</span>
+            </div>
+
+            <div class="time-slot">
+              <strong>${flight.arriveTime}</strong>
+              <span>${toVal.split(' ')[0]}</span>
+            </div>
+          </div>
+
+          <div class="flight-pricing-cta">
+            <div class="live-price">$${flight.price}*</div>
+            <div class="price-note">All taxes included • ${flight.seats}</div>
+            <button type="button" class="btn-book-now" onclick="openPhoneModal('${flight.airline} Fare $${flight.price}')">
+              <svg class="icon" style="width: 14px; height: 14px;" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>Call & Lock Deal</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      // Smooth scroll to results
+      resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // 5. FAQ Accordion Toggle
+    function toggleFaq(button) {
+      const item = button.parentElement;
+      const isActive = item.classList.contains('active');
+      
+      // Close all items
+      document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+      
+      // Toggle current
+      if (!isActive) {
+        item.classList.add('active');
+      }
+    }
+
+    // 6. Phone Modal Handlers
+    function openPhoneModal(serviceName) {
+      const modal = document.getElementById('phoneModal');
+      const title = document.getElementById('modalServiceTitle');
+      const badge = document.getElementById('modalServiceBadge');
+      
+      if (serviceName) {
+        title.textContent = `Call for ${serviceName}`;
+        badge.textContent = 'Special Agent Assistance';
+      } else {
+        title.textContent = 'Unlock Secret Phone Fare';
+        badge.textContent = 'Exclusive Phone Offer';
+      }
+      
+      modal.classList.add('active');
+    }
+
+    function closePhoneModal() {
+      document.getElementById('phoneModal').classList.remove('active');
+    }
+
+    // Close on outside click
+    window.onclick = function(event) {
+      const modal = document.getElementById('phoneModal');
+      if (event.target === modal) {
+        closePhoneModal();
+      }
+    }
+  </script>
+</body>
+</html>
