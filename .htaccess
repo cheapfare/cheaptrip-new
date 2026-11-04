@@ -1,0 +1,37 @@
+# ==============================================================================
+# cheaptriptoday - Clean URLs & Server Routing Configuration
+# ==============================================================================
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. 301 Redirect: Remove .html extension if typed directly by user or search engine
+  # E.g. /about.html -> /about
+  RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # 2. If the request matches a physical directory that has index.html, serve it
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_FILENAME}/index.html -f
+  RewriteRule ^ - [L]
+
+  # 3. If a .html file exists for the requested path, silently rewrite to it
+  # E.g. /about -> /about.html (address bar stays /about)
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f [OR]
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.*)$ $1.html [L]
+</IfModule>
+
+# Optional security and MIME types
+<IfModule mod_mime.c>
+  AddType text/html .html
+  AddType application/manifest+json .webmanifest
+  AddType image/webp .webp
+  AddType image/svg+xml .svg
+</IfModule>
+
+# Custom Error Documents
+ErrorDocument 404 /404.html
+
