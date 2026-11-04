@@ -1,0 +1,35 @@
+# Clean URLs and Direct Page Routing
+/airline-reservation    /airline-reservation.html    200
+/airline-reservation/   /airline-reservation.html    200
+/contact                /contact.html                200
+/contact/               /contact.html                200
+/contact-us             /contact.html                200
+/contact-us/            /contact.html                200
+/about                  /about.html                  200
+/about/                 /about.html                  200
+/about-us               /about.html                  200
+/about-us/              /about.html                  200
+/privacy                /privacy-policy.html         200
+/privacy/               /privacy-policy.html         200
+/privacy-policy         /privacy-policy.html         200
+/privacy-policy/        /privacy-policy.html         200
+/terms                  /terms-and-conditions.html   200
+/terms/                 /terms-and-conditions.html   200
+/terms-and-conditions   /terms-and-conditions.html   200
+/terms-and-conditions/  /terms-and-conditions.html   200
+/refund                 /refund-policy.html          200
+/refund/                /refund-policy.html          200
+/refund-policy          /refund-policy.html          200
+/refund-policy/         /refund-policy.html          200
+/disclaimer             /disclaimer.html             200
+/disclaimer/            /disclaimer.html             200
+/flights                /flights.html                200
+/flights/               /flights.html                200
+/results                /flights.html                200
+/results/               /flights.html                200
+/checkout               /index.html                  200
+/checkout/              /index.html                  200
+/confirmation           /index.html                  200
+/confirmation/          /index.html                  200
+/*                      /index.html                  200
+

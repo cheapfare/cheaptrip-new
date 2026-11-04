@@ -1,0 +1,140 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/airline-reservation",
+      "destination": "/airline-reservation.html"
+    },
+    {
+      "source": "/airline-reservation/",
+      "destination": "/airline-reservation.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/contact/",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/contact-us",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/contact-us/",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/about/",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/about-us",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/about-us/",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy-policy.html"
+    },
+    {
+      "source": "/privacy/",
+      "destination": "/privacy-policy.html"
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/privacy-policy.html"
+    },
+    {
+      "source": "/privacy-policy/",
+      "destination": "/privacy-policy.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms-and-conditions.html"
+    },
+    {
+      "source": "/terms/",
+      "destination": "/terms-and-conditions.html"
+    },
+    {
+      "source": "/terms-and-conditions",
+      "destination": "/terms-and-conditions.html"
+    },
+    {
+      "source": "/terms-and-conditions/",
+      "destination": "/terms-and-conditions.html"
+    },
+    {
+      "source": "/refund",
+      "destination": "/refund-policy.html"
+    },
+    {
+      "source": "/refund/",
+      "destination": "/refund-policy.html"
+    },
+    {
+      "source": "/refund-policy",
+      "destination": "/refund-policy.html"
+    },
+    {
+      "source": "/refund-policy/",
+      "destination": "/refund-policy.html"
+    },
+    {
+      "source": "/disclaimer",
+      "destination": "/disclaimer.html"
+    },
+    {
+      "source": "/disclaimer/",
+      "destination": "/disclaimer.html"
+    },
+    {
+      "source": "/flights",
+      "destination": "/flights.html"
+    },
+    {
+      "source": "/flights/",
+      "destination": "/flights.html"
+    },
+    {
+      "source": "/results",
+      "destination": "/flights.html"
+    },
+    {
+      "source": "/results/",
+      "destination": "/flights.html"
+    },
+    {
+      "source": "/checkout",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/checkout/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/confirmation",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/confirmation/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/((?!api/.*).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+
